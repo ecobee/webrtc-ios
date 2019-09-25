@@ -43,7 +43,7 @@ Checkout the desired release. Releases can be found in the the [Google group](ht
 To build the framework with bitcode support, pass the `--bitcode` flag to the `build_ios_libs` script found in `/tools_webrtc/ios`.
 
 ```bash
-python build_ios_libs.py -—bitcode
+python build_ios_libs.py -—bitcode --revision [RELEASE_NUMBER]
 ```
 
 The resulting framework can be found in `/out_ios_libs/`.
