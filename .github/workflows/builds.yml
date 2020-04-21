@@ -1,0 +1,28 @@
+name: Framework
+
+on:
+  push:
+    branches: 
+    - master
+    paths:
+    - 'config.sh'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it 
+    - uses: actions/checkout@v2
+        
+    - name: Move to the workspace
+      run: cd $GITHUB_WORKSPACE
+
+    - name: Run the build script
+      run: ./build.sh -b branch-heads/4044 -v 81
+
+    # Upload zip file
+    - uses: actions/upload-artifact@v1
+      with:
+        name: WebRTC.framework.zip
+        path: build/WebRTC.framework.zip
