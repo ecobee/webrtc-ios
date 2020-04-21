@@ -2,7 +2,7 @@
 
 ## Generating a Framework
 
-The offical documenation could be found [here](https://webrtc.org/native-code/ios/). 
+The offical documenation could be found [here](https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/ios/index.md). 
 
 ### Get Depot Tools
 
