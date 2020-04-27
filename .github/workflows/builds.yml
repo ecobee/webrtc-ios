@@ -19,7 +19,7 @@ jobs:
       run: cd $GITHUB_WORKSPACE
 
     - name: Run the build script
-      run: ./build.sh -b branch-heads/4044 -v 81
+      run: ./build.sh
 
     # Upload zip file
     - uses: actions/upload-artifact@v1
