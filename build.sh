@@ -50,5 +50,6 @@ cd "${build_dir}/src/tools_webrtc/ios"
 python build_ios_libs.py --arch {arm64,arm} --bitcode --revision "${version}"
 cd "${build_dir}/src/out_ios_libs"
 timestamp=$(date +%s)
-zip -r "WebRTC_${timestamp}.zip" .
-mv WebRTC.framework.zip "${build_dir}"
+filename="WebRTC_${timestamp}.zip"
+zip -r $filename .
+mv $filename "${build_dir}"
