@@ -22,7 +22,7 @@ jobs:
       run: ./build.sh
 
     # Upload zip file
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       with:
         name: WebRTC.framework.zip
-        path: build/WebRTC.framework.zip
+        path: build/WebRTC_*.framework.zip
