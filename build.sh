@@ -30,17 +30,17 @@ fi
 echo "Setting up environment..."
 root_dir=$(pwd)
 build_dir="${root_dir}/build/"
-# mkdir $build_dir
+mkdir $build_dir
 cd "${build_dir}"
 
 # Setup tooling
 echo "Setting up tooling..."
-# git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 tools_dir="${build_dir}/depot_tools/"
 export PATH=$PATH:$tools_dir
 
 # Fetch repo and switch to release
-echo "Fetching repo...\n"
+echo "Fetching repo..."
 fetch --nohooks webrtc_ios
 gclient sync
 
@@ -48,7 +48,7 @@ echo "Switching branch to '$branch'..."
 cd "${build_dir}/src"
 git checkout -b "${branch}"
 
-# make the framework file
+# Make the framework
 echo "Start creating frameworks..."
 
 echo "Building Framework..."
