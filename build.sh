@@ -51,7 +51,7 @@ git checkout -b "${branch}"
 # Make the framework
 echo "Start creating frameworks..."
 
-echo "Building Framework..."
+echo "Building framework without Bitcode..."
 
 cd "${build_dir}/src/tools_webrtc/ios"
 python build_ios_libs.py --revision "${version}"
@@ -79,5 +79,42 @@ frameworkFile="WebRTC.framework"
 zipFile="${frameworkFile}.zip"
 zip -r $zipFile $frameworkFile
 mv $zipFile "${build_dir}"
+
+echo "Building framework with Bitcode..."
+
+echo "Clean output folder"
+rm -rf "${build_dir}/src/out_ios_libs"
+
+cd "${build_dir}/src/tools_webrtc/ios"
+python build_ios_libs.py --bitcode --revision "${version}"
+
+cd "${build_dir}/src"
+
+frameworkFile="WebRTC-Bitcode.xcframework"
+
+xcodebuild -create-xcframework \
+    -framework out_ios_libs/arm64_libs/WebRTC.framework \
+	-framework out_ios_libs/x64_libs/WebRTC.framework \
+	-output out_ios_libs/$frameworkFile
+
+echo "Archiving XCFramework..."
+
+cd "${build_dir}/src/out_ios_libs"
+zipFile="${frameworkFile}.zip"
+zip -r $zipFile $frameworkFile
+mv $zipFile "${build_dir}"
+
+echo "Archiving Framework..."
+
+cd "${build_dir}/src/out_ios_libs"
+frameworkFile="WebRTC-Bitcode.framework"
+mv WebRTC.framework $frameworkFile
+zipFile="${frameworkFile}.zip"
+zip -r $zipFile $frameworkFile
+mv $zipFile "${build_dir}"
+
+echo "Computing checksum for XCFramework with Bitcode..."
+
+swift package compute-checksum "${build_dir}/WebRTC-Bitcode.xcframework.zip"
 
 echo "Finished creating frameworks."
