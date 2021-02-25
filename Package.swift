@@ -11,7 +11,7 @@ let package = Package(
             targets: ["WebRTC"]),
         .library(
             name: "WebRTC-Bitcode",
-            targets: ["WebRTC"]),
+            targets: ["WebRTC-Bitcode"]),
     ],
     dependencies: [],
     targets: [
