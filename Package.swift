@@ -20,7 +20,7 @@ let package = Package(
             path: "Frameworks/WebRTC.xcframework"),
         .binaryTarget(
             name: "WebRTC-Bitcode",
-            url: "https://github.com/ecobee/webrtc-ios/releases/download/86.0.0/WebRTC-Bitcode.xcframework.zip",
-            checksum: "f8ed523c35e9758abcd5c1b41e9b9cc46a147883c7febab796ff00546ca1c8f8")
+            url: "https://github.com/ecobee/webrtc-ios/releases/download/89.0.0/WebRTC-Bitcode.xcframework.zip",
+            checksum: "6d0704ffe2e56ecae8e6722113013ae42a6ed38c4cc4af5238bbfefbdb6400c3")
     ]
 )

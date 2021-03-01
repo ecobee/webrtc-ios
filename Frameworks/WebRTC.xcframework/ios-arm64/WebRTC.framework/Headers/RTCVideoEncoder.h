@@ -13,7 +13,6 @@
 #import <WebRTC/RTCCodecSpecificInfo.h>
 #import <WebRTC/RTCEncodedImage.h>
 #import <WebRTC/RTCMacros.h>
-#import <WebRTC/RTCRtpFragmentationHeader.h>
 #import <WebRTC/RTCVideoEncoderQpThresholds.h>
 #import <WebRTC/RTCVideoEncoderSettings.h>
 #import <WebRTC/RTCVideoFrame.h>
@@ -22,8 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** Callback block for encoder. */
 typedef BOOL (^RTCVideoEncoderCallback)(RTC_OBJC_TYPE(RTCEncodedImage) * frame,
-                                        id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)> info,
-                                        RTC_OBJC_TYPE(RTCRtpFragmentationHeader) * header);
+                                        id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)> info);
 
 /** Protocol for encoder implementations. */
 RTC_OBJC_EXPORT
