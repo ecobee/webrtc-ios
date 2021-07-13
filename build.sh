@@ -30,23 +30,27 @@ fi
 echo "Setting up environment..."
 root_dir=$(pwd)
 build_dir="${root_dir}/build/"
-mkdir $build_dir
+mkdir -p $build_dir
 cd "${build_dir}"
 
 # Setup tooling
 echo "Setting up tooling..."
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 tools_dir="${build_dir}/depot_tools/"
+if [ ! -d "$tools_dir" ]; then
+  git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+fi
 export PATH=$PATH:$tools_dir
 
 # Fetch repo and switch to release
 echo "Fetching repo..."
-fetch --nohooks webrtc_ios
+if [ ! -d "${build_dir}/src" ]; then
+  fetch --nohooks webrtc_ios
+fi
 gclient sync
 
 echo "Switching branch to '$branch'..."
 cd "${build_dir}/src"
-git checkout -b "${branch}"
+git checkout -B "${branch}"
 
 # Make the framework
 echo "Start creating frameworks..."
@@ -58,11 +62,14 @@ python build_ios_libs.py --revision "${version}"
 
 cd "${build_dir}/src"
 
+echo "Clean output folder"
+rm -rf "${build_dir}/src/out_ios_libs"
+
 frameworkFile="WebRTC.xcframework"
 
 xcodebuild -create-xcframework \
-    -framework out_ios_libs/arm64_libs/WebRTC.framework \
-	-framework out_ios_libs/x64_libs/WebRTC.framework \
+    -framework out_ios_libs/device/arm64_libs/WebRTC.framework \
+	-framework out_ios_libs/simulator/x64_libs/WebRTC.framework \
 	-output out_ios_libs/$frameworkFile
 
 echo "Archiving XCFramework..."
@@ -93,8 +100,8 @@ cd "${build_dir}/src"
 frameworkFile="WebRTC-Bitcode.xcframework"
 
 xcodebuild -create-xcframework \
-    -framework out_ios_libs/arm64_libs/WebRTC.framework \
-	-framework out_ios_libs/x64_libs/WebRTC.framework \
+    -framework out_ios_libs/device/arm64_libs/WebRTC.framework \
+	-framework out_ios_libs/simulator/x64_libs/WebRTC.framework \
 	-output out_ios_libs/$frameworkFile
 
 echo "Archiving XCFramework..."
