@@ -18,4 +18,4 @@ A framework can easily by created by using the build script. You must supply a b
 
 # More info
 
-You can find out more in the [wiki](https://github.com/ecobee/webrtc-ios/wiki)
+You can find out more in the [wiki](https://github.com/ecobee/webrtc-ios/wiki)test
